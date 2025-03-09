@@ -1,4 +1,4 @@
-# OpenWrt IPv6 设置方案
+# OpenWrt & OpenClash IPv6 设置方案
 
 ## 前言
    本方案设置以 OpenWrt 主路由拨号环境设置，使用固件为[ImmortalWrt](https://github.com/immortalwrt/immortalwrt)。
@@ -90,3 +90,31 @@
    至此，OpenWrt 的 IPv6 功能设置完毕。
 
 ### OpenClash
+
+**1. IPv6 设置**
+
+  如果节点不支持 IPv6 出站，或者 OpenWrt 没有开启 IPv6 功能，则禁用`IPv6流量代理`和`允许IPv6类型DNS解析`。
+  ![OpenClash IPv6](https://github.com/user-attachments/assets/3e4944e1-b31d-4535-8aa8-2ca621fd3a45)
+
+  如果启用了此处的 IPv6 功能，并且平时要使用 Google Play，请绕过指定区域 IPv6 黑名单中添加如下四条域名：
+  ```
+  services.googleapis.cn
+  googleapis.cn
+  xn--ngstr-lra8j.com
+  clientservices.googleapis.com
+  ```
+  ![blacklist-ipv6](https://github.com/user-attachments/assets/a85cd667-086d-4ea8-b170-3caf7bbd4f1a)
+
+## IPv6 如何正确设置“端口转发”
+
+   首先明确一点，你的下游设备取得的都是公网 IPv6 地址，因此此处实际上并不需要“端口转发”功能，只需要设置对应的防火墙规则，即可实现和 IPv4 的端口转发一样的使用效果。
+
+   虽然局域网内设备取得了 IPv6 公网地址，但是你会发现从公网虽然可以 ping 通这些地址，但是并不能直接访问这些地址的端口服务。
+   
+   原因在于 OpenWrt 的防火墙规则默认放行转发给下游设备的 IPv6 的 ICMP 数据包，但是并没有对其他的数据进行放行。这是一种安全的设定，可以避免下游设备在取得 IPv6 公网地址后不安全的暴露于公网环境中。
+
+   如果你需要从公网访问 OpenWrt 的下游设备的 IPv6 地址的特定端口（比如群晖的5000端口），则需要建立相应的防火墙通信规则，对特定地址和端口进行放行。
+
+   具体设置参考：[immortalwrt/user-FAQ/IPV6如何正确配置端口转发？](https://github.com/immortalwrt/user-FAQ/blob/main/immortalwrt%20%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%8C%87%E5%8C%97.md#6-ipv6%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E9%85%8D%E7%BD%AE%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91)
+
+   注意填写地址部分，只需要填写设备的 IPv6 地址的后16位，也就是 MAC 生成的部分，这样防火墙规则会按照地址后缀去匹配设备，无需担心运营商下发的地址前缀变动。而地址后缀是根据 MAC 生成的固定后缀。
