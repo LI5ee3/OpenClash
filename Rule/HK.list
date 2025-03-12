@@ -13,3 +13,7 @@ DOMAIN-SUFFIX,contentstack.io
 DOMAIN-SUFFIX,mtr.com.hk
 DOMAIN,subsidy-app.ptfss.hk
 DOMAIN,xroh.cbp.gemalto.com
+
+# 3HK Wifi Calling服务器
+IP-CIDR,124.217.186.49/32
+IP-CIDR,203.145.92.49/32
