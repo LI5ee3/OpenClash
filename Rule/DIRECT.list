@@ -5,7 +5,6 @@ DOMAIN-KEYWORD,oracle
 DOMAIN-SUFFIX,oracle.com
 DOMAIN-SUFFIX,oraclecloud.com
 DOMAIN-SUFFIX,5993.top
-IP-CIDR,64.181.252.163/32,no-resolve
 
 DOMAIN-SUFFIX,bochk.com
 DOMAIN-SUFFIX,hsbc.com.hk
