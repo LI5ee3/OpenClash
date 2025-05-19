@@ -1,5 +1,4 @@
-# OpenClash-rule
-自用OpenClash规则
+# OpenClash配置
 
 ## 自定义规则
 * DOMAIN-SUFFIX,google.com,Proxy 匹配域名后缀(交由Proxy代理服务器组)
